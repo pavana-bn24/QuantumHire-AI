@@ -1,0 +1,441 @@
+URGENT: COMPLETE THE EXISTING QUANTUMHIRE AI PROJECT
+
+I have only about 2 hours left. This is an EXISTING project imported from GitHub.
+
+IMPORTANT:
+- DO NOT rebuild the project from scratch.
+- DO NOT replace the existing architecture.
+- DO NOT delete working features.
+- DO NOT redesign the dashboard.
+- DO NOT create a new project.
+- Inspect the existing code first and continue from the current implementation.
+- Prioritize a working end-to-end demo over UI polish.
+- Do not use paid AI APIs.
+- If an external LLM is unavailable, use the existing STUB/DEMO provider so the application still works.
+
+EXISTING PROJECT:
+- React/Vite/Tailwind frontend
+- FastAPI/Python backend
+- MongoDB
+- Role management
+- Candidate management
+- Dashboard/pipeline
+- PDF resume upload
+- PyMuPDF resume extraction
+- Structured candidate profile
+- Recruiter profile review/approval
+- Evidence-grounded extraction
+- Prompt-injection protection
+- Existing AI/RAG/skill-test/workflow backend code may already exist
+
+FIRST:
+1. Inspect README.md.
+2. Inspect backend/app/ and frontend/src/.
+3. Run the existing backend tests.
+4. Run/build the frontend.
+5. Identify what is ALREADY implemented.
+6. Do NOT duplicate existing functionality.
+
+THEN COMPLETE THE REMAINING ASSIGNMENT.
+
+==================================================
+1. AI CANDIDATE EVALUATION
+==================================================
+
+Ensure this works:
+
+POST /api/candidates/{id}/evaluate
+
+Only allow evaluation after recruiter approval of the candidate profile.
+
+Evaluation must compare three separate sources:
+
+A. APPROVED CANDIDATE EVIDENCE
+B. ROLE REQUIREMENTS
+C. RECRUITMENT KNOWLEDGE
+
+Return structured evaluation containing:
+
+- executive_summary
+- relevant_experience
+- demonstrated_strengths
+- skill_gaps
+- ai_first_readiness
+- implementation_capability
+- learning_research_readiness
+- evidence_gaps
+- recommended_next_step
+- knowledge_sources
+
+Use these capability statuses:
+
+- Demonstrated
+- Partially Demonstrated
+- Not Demonstrated
+- Needs Verification
+
+NEVER invent candidate experience.
+
+Missing evidence must NOT be treated as proof of weakness.
+
+Example:
+"RAG is Not Demonstrated in the approved candidate evidence."
+
+Do NOT:
+- create an overall candidate score
+- rank candidates
+- automatically select candidates
+- automatically reject candidates
+
+==================================================
+2. LIGHTWEIGHT RAG
+==================================================
+
+Use/create:
+
+backend/knowledge/
+
+with:
+
+ai_fullstack_requirements.md
+evaluation_guidelines.md
+skill_test_guidelines.md
+hiring_workflow.md
+
+Implement simple keyword/content retrieval.
+
+DO NOT build a complex vector database.
+
+Retrieved knowledge must include:
+- content
+- source
+
+Keep candidate evidence, role requirements and retrieved knowledge separate.
+
+==================================================
+3. PERSONALIZED SKILL TEST
+==================================================
+
+Ensure:
+
+POST /api/candidates/{id}/generate-test
+
+works only after recruiter approves the AI recommendation.
+
+Generate using:
+
+Role Requirements
++
+Candidate Strengths
++
+Candidate Gaps
+
+Return:
+
+- title
+- business_problem
+- objective
+- requirements
+- technical_requirements
+- expected_deliverables
+- evaluation_criteria
+- time_limit
+
+The test must be personalized to the candidate.
+
+Do NOT generate the exact same generic test for every candidate.
+
+==================================================
+4. HUMAN APPROVAL WORKFLOW
+==================================================
+
+The workflow MUST be:
+
+AI evaluation generated
+→ recruiter reviews
+→ recruiter approves recommendation
+→ personalized skill test generated
+→ recruiter edits/reviews
+→ recruiter approves
+→ candidate moves to Skill Test
+
+AI must NEVER directly move a candidate.
+
+Record workflow events containing:
+
+- candidate_id
+- event
+- actor
+- timestamp
+- metadata
+
+==================================================
+5. TOOL/FUNCTION WORKFLOW
+==================================================
+
+Use real backend application functions/services for:
+
+- get_candidate_profile
+- get_role_requirements
+- get_recruitment_guidelines
+- evaluate_candidate
+- generate_skill_test
+- update_candidate_status
+
+Candidate/resume text must NEVER be allowed to execute arbitrary tools.
+
+==================================================
+6. WORKFLOW AUTOMATION
+==================================================
+
+Ensure at least one real trigger → action workflow.
+
+Preferred:
+
+Resume uploaded
+→ candidate created
+→ profile extracted
+→ stage becomes Under Review
+→ workflow event created
+
+Also implement:
+
+Recruiter approves evaluation
+→ skill test generated
+→ workflow event created
+
+Do not automatically select/reject candidates.
+
+==================================================
+7. EXTERNAL INTEGRATION
+==================================================
+
+Implement a simple webhook/simulation.
+
+When recruiter approves a skill test, send or simulate:
+
+candidate_id
+candidate_name
+role
+stage
+skill_test_id
+timestamp
+
+Use:
+
+EXTERNAL_WEBHOOK_URL
+
+If it is not configured, create a clearly labelled simulated integration event.
+
+Do not spend time implementing OAuth.
+
+==================================================
+8. AUTHENTICATION
+==================================================
+
+Ensure basic JWT authentication works.
+
+Create/use:
+
+POST /api/auth/login
+
+Use environment variables for:
+
+JWT secret
+demo recruiter credentials
+
+Do NOT hardcode secrets.
+
+Protect important mutation/evaluation/skill-test APIs.
+
+==================================================
+9. FRONTEND
+==================================================
+
+Update the EXISTING Candidate Detail page only where necessary.
+
+It should visibly support:
+
+Overview
+Resume/Profile
+AI Evaluation
+Skill Test
+Activity
+
+AI Evaluation section:
+
+[Generate Evaluation]
+
+Show:
+- Executive Summary
+- Strengths
+- Gaps
+- AI Readiness
+- Implementation Capability
+- Learning/Research
+- Evidence Gaps
+- Recommended Next Step
+- Knowledge Sources
+
+Buttons:
+- Edit Evaluation
+- Approve Recommendation
+
+Skill Test section:
+
+[Generate Personalized Test]
+
+Editable:
+- Title
+- Business Problem
+- Objective
+- Requirements
+- Technical Requirements
+- Deliverables
+- Evaluation Criteria
+- Time Limit
+
+Buttons:
+- Save Draft
+- Regenerate
+- Approve & Move to Skill Test
+
+Activity section:
+Show workflow events chronologically.
+
+Keep the existing dashboard.
+Add/use:
+- Awaiting Review
+- Awaiting Skill Test
+
+Do NOT add candidate ranking.
+
+==================================================
+10. ERROR HANDLING
+==================================================
+
+Handle gracefully:
+
+- LLM unavailable
+- invalid structured output
+- missing candidate profile
+- profile not approved
+- missing role
+- duplicate candidate
+- database failure
+- webhook failure
+- skill-test generation failure
+
+Use useful backend HTTP errors and frontend error states.
+
+==================================================
+11. TESTING
+==================================================
+
+Keep existing tests passing.
+
+Add/fix tests for:
+
+- AI evaluation schema
+- evaluation endpoint
+- RAG retrieval
+- profile approval requirement
+- skill-test generation
+- human approval workflow
+- candidate stage update
+- tool/service workflow
+- webhook/simulation
+- JWT authentication
+
+Tests MUST work without paid API keys.
+
+Use the existing stub/mock provider for tests.
+
+==================================================
+12. SECURITY
+==================================================
+
+- Never put API keys in source code.
+- Use environment variables.
+- Never expose backend secrets to frontend.
+- Treat candidate resume text as untrusted data.
+- Preserve prompt-injection protection.
+- Do not allow candidate text to control tools.
+- Validate API inputs.
+
+==================================================
+13. FINAL DEMO MUST WORK
+==================================================
+
+I need to demonstrate this exact flow:
+
+AI Full-Stack Developer role
+↓
+Upload PDF resume
+↓
+Extract candidate
+↓
+Recruiter edits/approves profile
+↓
+Generate AI evaluation
+↓
+Retrieve recruitment knowledge
+↓
+Show evidence-grounded strengths/gaps
+↓
+Show recommended next step
+↓
+Recruiter approves
+↓
+Generate personalized practical test
+↓
+Recruiter edits test
+↓
+Recruiter approves
+↓
+Candidate moves to Skill Test
+↓
+Workflow event recorded
+↓
+Webhook/simulated integration executed
+↓
+Dashboard updates
+
+==================================================
+TIME CONSTRAINT
+==================================================
+
+I have approximately 2 hours.
+
+DO NOT:
+- build microservices
+- build a complex vector database
+- build candidate portal
+- build WhatsApp
+- build calendar integration
+- add advanced drag/drop
+- redesign existing UI
+- add unnecessary animations
+- spend time on unnecessary refactoring
+
+FUNCTIONALITY AND DEMOABILITY ARE THE PRIORITY.
+
+IMPORTANT:
+After each major feature:
+1. run tests
+2. run/build the frontend if relevant
+3. fix errors
+4. continue
+
+Do not stop at an explanation. ACTUALLY MODIFY THE CODE.
+
+When finished, report:
+1. Implemented features
+2. Remaining gaps
+3. How to run frontend/backend
+4. Demo credentials
+5. Demo workflow
+6. Required environment variables
+7. Deployment/run instructions
+8. Known limitations
+9. Final test result

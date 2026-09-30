@@ -1,0 +1,8 @@
+modules = ["python-3.12", "nodejs-20", "web", "bash"]
+
+[nix]
+channel = "stable-25_05"
+packages = ["freetype", "gumbo", "harfbuzz", "jbig2dec", "libjpeg_turbo", "libxcrypt", "mupdf", "openjpeg", "swig", "xcbuild"]
+
+[agent]
+expertMode = true

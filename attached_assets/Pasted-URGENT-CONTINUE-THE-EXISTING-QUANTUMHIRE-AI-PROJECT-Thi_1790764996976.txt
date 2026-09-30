@@ -1,0 +1,295 @@
+URGENT — CONTINUE THE EXISTING QUANTUMHIRE AI PROJECT
+
+This is NOT a new project. It is the latest version imported from my GitHub repository.
+
+I have very limited time and limited Agent quota.
+
+IMPORTANT:
+- DO NOT rebuild the project.
+- DO NOT replace the architecture.
+- DO NOT delete working features.
+- DO NOT redesign the UI.
+- DO NOT repeat features that are already implemented.
+- Inspect the current code FIRST.
+- Run the application and tests FIRST.
+- Then implement ONLY the missing assignment requirements.
+
+The previous Replit session already made changes to:
+- AI evaluation contract
+- evaluation API/frontend connection
+- skill-test approval payload
+- candidate tabs
+- activity event log
+- in-memory Mongo-compatible test fallback
+- mandatory role selection for resume uploads
+- recruiter workflow/test assumptions
+
+FIRST AUDIT THE CURRENT STATE.
+
+Check:
+1. README.md
+2. backend/app/ai/
+3. backend/app/api/routes/
+4. backend/app/services/
+5. backend/app/models/
+6. backend/knowledge/
+7. frontend/src/
+8. backend/tests/
+
+Run:
+- backend tests
+- frontend build
+- application startup
+
+Then create a short checklist of:
+A. Already implemented
+B. Partially implemented
+C. Missing
+
+DO NOT redo A.
+
+==================================================
+CRITICAL DEMO REQUIREMENTS
+==================================================
+
+Make this exact workflow work:
+
+AI Full-Stack Developer role
+↓
+Upload PDF resume
+↓
+Extract candidate profile
+↓
+Recruiter approves profile
+↓
+Generate AI evaluation
+↓
+Show evidence-grounded evaluation
+↓
+Recruiter approves recommendation
+↓
+Generate personalized skill test
+↓
+Recruiter edits/saves test
+↓
+Recruiter approves test
+↓
+Candidate moves to Skill Test
+↓
+Activity/workflow event recorded
+↓
+Webhook or clearly labelled simulated integration
+↓
+Dashboard updates
+
+==================================================
+AI EVALUATION
+==================================================
+
+Verify:
+
+POST /api/candidates/{id}/evaluate
+
+Evaluation must use:
+1. approved candidate evidence
+2. role requirements
+3. recruitment knowledge
+
+It must show:
+- executive_summary
+- relevant_experience
+- demonstrated_strengths
+- skill_gaps
+- ai_first_readiness
+- implementation_capability
+- learning_research_readiness
+- evidence_gaps
+- recommended_next_step
+- knowledge_sources
+
+Statuses:
+- Demonstrated
+- Partially Demonstrated
+- Not Demonstrated
+- Needs Verification
+
+Never invent experience.
+Missing evidence is NOT proof of weakness.
+No candidate ranking.
+No overall candidate score.
+No automatic select/reject.
+
+==================================================
+RAG
+==================================================
+
+Verify lightweight retrieval works using:
+
+backend/knowledge/
+- ai_fullstack_requirements.md
+- evaluation_guidelines.md
+- skill_test_guidelines.md
+- hiring_workflow.md
+
+Do NOT build a vector database.
+
+Candidate evidence, role requirements and retrieved knowledge must remain separate.
+
+==================================================
+PERSONALIZED SKILL TEST
+==================================================
+
+Verify:
+
+POST /api/candidates/{id}/generate-test
+
+It must use:
+- role requirements
+- candidate strengths
+- candidate gaps
+
+It must generate:
+- title
+- business_problem
+- objective
+- requirements
+- technical_requirements
+- expected_deliverables
+- evaluation_criteria
+- time_limit
+
+It must be candidate-specific.
+
+==================================================
+HUMAN APPROVAL
+==================================================
+
+CRITICAL:
+
+AI evaluation
+→ recruiter approval
+→ skill test generation
+→ recruiter editing
+→ recruiter approval
+→ Skill Test stage
+
+AI must NOT directly move candidates.
+
+Record activity events:
+- candidate_id
+- event
+- actor
+- timestamp
+- metadata
+
+==================================================
+TOOLS / AUTOMATION
+==================================================
+
+Verify backend functions/services exist and are actually used:
+
+- get_candidate_profile
+- get_role_requirements
+- get_recruitment_guidelines
+- evaluate_candidate
+- generate_skill_test
+- update_candidate_status
+
+Candidate text must never execute arbitrary tools.
+
+==================================================
+EXTERNAL INTEGRATION
+==================================================
+
+Verify skill-test approval triggers:
+
+EXTERNAL_WEBHOOK_URL
+
+If no URL is configured, create a clearly labelled simulated integration event.
+
+Payload should contain:
+- candidate_id
+- candidate_name
+- role
+- stage
+- skill_test_id
+- timestamp
+
+==================================================
+LLM
+==================================================
+
+DO NOT spend time fighting OpenAI/Gemini API quotas.
+
+Use the existing STUB/DEMO provider for the working demo if no external LLM is available.
+
+The application must work without a paid API key.
+
+Do not hardcode or expose API keys.
+
+==================================================
+FRONTEND
+==================================================
+
+Verify the existing Candidate Detail page provides:
+
+- Overview
+- Resume/Profile
+- AI Evaluation
+- Skill Test
+- Activity
+
+Evaluation:
+- Generate Evaluation
+- Edit Evaluation
+- Approve Recommendation
+
+Skill Test:
+- Generate Personalized Test
+- Save Draft
+- Regenerate
+- Approve & Move to Skill Test
+
+Activity:
+- chronological workflow events
+
+Do not redesign the dashboard.
+
+==================================================
+FINAL TEST
+==================================================
+
+After implementing only missing pieces:
+
+1. Run ALL backend tests.
+2. Build the frontend.
+3. Start backend.
+4. Start frontend.
+5. Test the complete recruiter workflow.
+
+Fix blocking errors.
+
+DO NOT spend time on:
+- microservices
+- complex vector databases
+- WhatsApp
+- calendar
+- candidate portal
+- animations
+- major UI redesign
+- paid API setup
+
+PRIORITY:
+WORKING END-TO-END DEMO > EXTRA FEATURES > UI POLISH.
+
+At the end report:
+1. Already implemented
+2. Newly implemented
+3. Remaining gaps
+4. Test result
+5. Frontend build result
+6. How to run
+7. Demo credentials
+8. Demo workflow
+9. Environment variables
+10. Known limitations

@@ -1,0 +1,4 @@
+# QuantumHire AI - backend development / test dependencies
+-r requirements.txt
+pytest==8.3.4
+mongomock==4.3.0
